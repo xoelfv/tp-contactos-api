@@ -8,7 +8,7 @@ from models.contacto import Contacto
 from schemas.contacto import contactos_schema
 from schemas.contacto import contacto_schema
 
-# se crea un blueprint (grupo de rutas) para organizar las rutas relacionadas con contactos
+# se crea un blueprint para organizar las rutas/endpoints relacionadas con contactos
 contactos_bp = Blueprint('contactos', __name__)
 
 ############# GET ################
@@ -43,9 +43,10 @@ def obtener_contactoId(id):
             "errors": [f"No existe un contacto con el ID {id}"] # f en corchetes (no usar llaves) para formatear el mensaje con el ID
         }), 404
 
-    # si existe, traduce (schema singular)
+    # si existe, traduce (schema individual)
     resultado = contacto_schema.dump(contacto)
     
+    # respuesta json diccionario
     return jsonify({
         "success": True,
         "data": [resultado], 
