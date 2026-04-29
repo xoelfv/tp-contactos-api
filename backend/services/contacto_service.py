@@ -1,0 +1,70 @@
+# services encargado de manipular db y devolver objetos de python a las rutas para que se conviertan a json con marshmallow
+
+
+from models.contacto import Contacto
+from extensiones import db
+from schemas.contacto import contacto_schema
+
+###### POST #####
+
+def crear_contacto(datos):
+    nuevo_contacto = Contacto(**datos)
+    db.session.add(nuevo_contacto)
+    db.session.commit()
+    return nuevo_contacto
+
+###### GET #####
+
+def obtener_contactos():
+    return Contacto.query.all()
+
+def obtener_contactoId(id):
+    contacto = Contacto.query.get(id)
+
+    if contacto is None:
+        return None
+
+    return contacto
+
+###### PUT #####
+
+def actualizar_contacto(id, datos):
+
+    contacto = Contacto.query.get(id)
+
+    if contacto is None:
+        return None
+    
+    for key, value in datos.items():
+        setattr(contacto, key, value)
+    db.session.commit()
+    
+    return contacto
+
+###### PATCH #####
+def modificar_contacto(id, datos):
+
+    contacto = Contacto.query.get(id)
+
+    if contacto is None:
+        return None
+    
+    for key, value in datos.items():
+        setattr(contacto, key, value)
+    db.session.commit()
+    
+    return contacto
+
+###### DELETE #####
+
+def eliminar_contacto(id):
+
+    contacto = Contacto.query.get(id)
+
+    if contacto is None:
+        return None
+    
+    db.session.delete(contacto)
+    db.session.commit()
+
+

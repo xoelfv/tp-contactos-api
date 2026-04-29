@@ -1,153 +1,26 @@
-from flask import Blueprint, jsonify
-from flask import request 
-from models.contacto import db, Contacto
+from flask import Blueprint
+from controllers.contacto_controller import get_contactos, get_contactoId, post_contacto, put_contacto, patch_contacto, delete_contacto
 
-# se importa la tabla/modelo para poder hacer consultas a la base de datos 
-# y el esquema de marshmallow para serializar los datos
-from models.contacto import Contacto
-from schemas.contacto import contactos_schema
-from schemas.contacto import contacto_schema
 
 # se crea un blueprint para organizar las rutas/endpoints relacionadas con contactos
-contactos_bp = Blueprint('contactos', __name__)
+contactos_bp = Blueprint('contactos', __name__, url_prefix='/contactos') # url_prefix es para que todas las rutas de este blueprint empiecen con /api, por ejemplo /api/contactos para obtener todos los contactos, /api/contactos/1 para obtener el contacto con id 1, etc. Esto ayuda a organizar mejor las rutas y a evitar conflictos con otras partes de la API que puedan tener rutas similares.
+
 
 ############# GET ################
-
 # ruta para obtener todos los contactos
-@contactos_bp.route('/contactos', methods=['GET'])
-def obtener_contactos():
-    # busca todos los contactos en la base de datos, equivalente a SELECT * FROM contactos en SQL
-    contactos = Contacto.query.all()
-    
-    # se traduce los objetos de python a datos en bruto usando el esquema de marshmallow
-    resultado = contactos_schema.dump(contactos)
-    
-    # diccionario respuesta json con codigo de estado 200 (OK)
-    return jsonify({
-        "success": True,
-        "data": resultado,
-        "count": len(resultado),
-        "message": "Contactos obtenidos correctamente"
-    }), 200
-
+contactos_bp.route('/', methods=['GET'])(get_contactos)
 # busca el contacto por su ID
-@contactos_bp.route('/contactos/<int:id>', methods=['GET'])
-def obtener_contactoId(id):
-    
-    contacto = Contacto.query.get(id)
-    
-    if contacto is None:
-        return jsonify({
-            "success": False,
-            "message": "Contacto no encontrado",
-            "errors": [f"No existe un contacto con el ID {id}"] # f en corchetes (no usar llaves) para formatear el mensaje con el ID
-        }), 404
-
-    # si existe, traduce (schema individual)
-    resultado = contacto_schema.dump(contacto)
-    
-    # respuesta json diccionario
-    return jsonify({
-        "success": True,
-        "data": [resultado], 
-        "count": 1,
-        "message": "Contacto encontrado"
-    }), 200
+contactos_bp.route('/<int:id>', methods=['GET'])(get_contactoId)
 
 ############# POST ################
-
-@contactos_bp.route('/contactos', methods=['POST'])
-def crear_contacto():
-    # recibir datos json externos
-    datos = request.get_json()
-    
-    # validar, guardar en base de datos y convertir los datos con marshmallow
-    errors = contacto_schema.validate(datos)
-    if errors:
-        return jsonify({
-            "success": False,
-            "message": "Error de validación",
-            "errors": errors
-        }), 400
-    else: 
-        nuevo_contacto = Contacto(
-            nombre=datos['nombre'],
-            apellido=datos['apellido'],
-            direccion=datos.get('direccion'),  
-            email=datos['email'],
-            telefono=datos['telefono']
-        )
-        # creación en la base de datos
-        db.session.add(nuevo_contacto)
-        db.session.commit()
-        resultado = contacto_schema.dump(nuevo_contacto)
-        return jsonify({
-            "success": True,
-            "data": [resultado],
-            "count": 1,
-            "message": "Contacto creado correctamente"
-        }), 201
+contactos_bp.route('/', methods=['POST'])(post_contacto)
     
 #################### PUT ################
-
-@contactos_bp.route('/contactos/<int:id>', methods=['PUT'])
-def actualizar_contacto(id):
-    
-    contacto = Contacto.query.get(id)
-
-    if contacto is None:
-        return jsonify({
-            "success": False,
-            "message": "Contacto no encontrado",
-            "errors": [f"No existe un contacto con ID {id}"]
-        }), 404
-    else:
-        datos = request.get_json()
-
-        errors = contacto_schema.validate(datos)
-        if errors:
-            return jsonify({
-                "succecss": False,
-                "message": "Error de validación",
-                "errors": errors
-            }), 400
-        else:
-            contacto.nombre = datos ['nombre']
-            contacto.apellido = datos ['apellido']
-            contacto.direccion = datos ['direccion']
-            contacto.telefono = datos ['telefono']
-            contacto.email = datos ['email']
-
-            db.session.commit()
-            resultado = contacto_schema.dump(contacto)
-
-            return jsonify({
-                "success": True,
-                "data": [resultado],
-                "count": 1,
-                "message": "Contacto actualizado correctamente"
-            }), 200
+contactos_bp.route('/<int:id>', methods=['PUT'])(put_contacto)
         
+#################### PATCH ################
+contactos_bp.route('/<int:id>', methods=['PATCH'])(patch_contacto)
+
 #################### DELETE ################
-
-@contactos_bp.route('/contactos/<int:id>', methods=['DELETE'])
-def eliminar_contacto(id):
-
-    contacto = Contacto.query.get(id)
-
-    if contacto is None:
-        return jsonify({
-            "success": False,
-            "message": "Contacto no encontrado",
-            "errors": [f"No existe un contacto con ID {id}"]
-        }), 404
-    else: 
-        db.session.delete(contacto)
-        db.session.commit()
-        return jsonify({
-            "success": True,
-            "message": "Contacto eliminado correctamente"
-        }), 200
-
-
+contactos_bp.route('/<int:id>', methods=['DELETE'])(delete_contacto)
 

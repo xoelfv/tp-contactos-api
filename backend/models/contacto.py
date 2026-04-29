@@ -1,7 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from extensiones import db
 
 # inicializar la herramienta de la BD, despues se va a conectar con la app en app.py
-db = SQLAlchemy()
 
 class Contacto(db.Model):
     __tablename__ = 'contactos'
