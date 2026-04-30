@@ -26,10 +26,10 @@ def get_contactoId(id):
     contacto = obtener_contactoId(id)
     
     if contacto is None:
-        return respuesta_json(False, "Contacto no encontrado", {f"No existe un contacto con id {id}"}, 404)
+        return respuesta_json(False, "Contacto no encontrado", "No existe un contacto con el id proporcionado", 404)
     
     resultado = contacto_schema.dump(contacto)
-    return respuesta_json(True, resultado, "Contacto encontrado", 200)
+    return respuesta_json(True, resultado, "Contacto encontrado", None, (200))
 
 ##### POST #####
 
@@ -40,7 +40,7 @@ def post_contacto():
         return errors
     contacto = crear_contacto(datos)
     resultado = contacto_schema.dump(contacto)
-    return respuesta_json(True, resultado, "Contacto creado correctamente", 201)
+    return respuesta_json(True, resultado, "Contacto creado correctamente", None, 201)
 
 ##### PUT #####
 
@@ -49,7 +49,7 @@ def put_contacto(id):
     contacto = obtener_contactoId(id)
 
     if contacto is None:
-        return respuesta_json(False, "Contacto no encontrado", {f"No existe un contacto con id {id}"}, 404)
+        return respuesta_json(False, "Contacto no encontrado", "No existe un contacto con el id proporcionado", 404)
     
     datos = request.get_json()
     errors = contacto_schema.validate(datos)
@@ -59,7 +59,7 @@ def put_contacto(id):
     contacto_actualizado =actualizar_contacto(id, datos)
     resultado = contacto_schema.dump(contacto_actualizado)
 
-    return respuesta_json(True, resultado, "Contacto actualizado correctamente", 200)
+    return respuesta_json(True, resultado, "Contacto actualizado correctamente", None, 200)
         
 ##### PATCH #####
 
@@ -68,7 +68,7 @@ def patch_contacto(id):
     contacto = obtener_contactoId(id)
 
     if contacto is None:
-        return respuesta_json(False, "Contacto no encontrado", {f"No existe un contacto con id {id}"}, 404)
+        return respuesta_json(False, "Contacto no encontrado", "No existe un contacto con el id proporiconado", 404)
     
     datos = request.get_json()
     errors = contacto_schema.validate(datos, partial=True) 
@@ -81,17 +81,19 @@ def patch_contacto(id):
     contacto_actualizado = modificar_contacto(id, datos)
     resultado = contacto_schema.dump(contacto_actualizado)
 
-    return respuesta_json(True, resultado, "Contacto actualizado correctamente", 200)
+    return respuesta_json(True, resultado, "Contacto actualizado correctamente", None, 200)
 
 ##### DELETE #####
 
 def delete_contacto(id):
 
-    contacto = eliminar_contacto(id)
+    contacto = obtener_contactoId(id)
 
     if contacto is None:
-        return respuesta_json(False, "Contacto no encontrado", {f"No existe un contacto con id {id}"}, 404)
-    
-    return respuesta_json(True, "Contacto eliminado correctamente", 200)
+        return respuesta_json(False, "Contacto no encontrado", "No existe un contacto con el id proporcionado", 404)
+
+    eliminar_contacto(id)    
+
+    return respuesta_json(True, "Contacto eliminado correctamente", None, 200)
 
 

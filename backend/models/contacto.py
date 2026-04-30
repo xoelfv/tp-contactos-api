@@ -11,6 +11,9 @@ class Contacto(db.Model):
     direccion = db.Column (db.String(50))
     email = db.Column (db.String(50), nullable=False)
     telefono = db.Column (db.String(20), nullable=False)
-    id_localidad = db.Column (db.Integer, db.ForeignKey('localidades.id'),nullable=False)
+    id_localidad = db.Column (db.Integer, db.ForeignKey('localidades.id', ondelete='RESTRICT'), nullable=False)
     
-
+    localidad = db.relationship(
+        'Localidad',
+        back_populates='contactos'
+    )
