@@ -1,17 +1,19 @@
 from flask import Flask
 from extensiones import db # importar tabla para que se conecte con la app
 from routes.contactos import contactos_bp # importar el blueprint de rutas para contactos
-
+from routes.localidades import localidades_bp # importar el blueprint de rutas para localidades
 # Inicializa flask
 app = Flask(__name__) 
 
 # Configurar bd con sqlite, el archivo se va a llamar contactos.db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contactos.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///localidades.db'
 
 # se conecta la BD con la app
 # Registra blueprint de contactos
 db.init_app(app)
 app.register_blueprint(contactos_bp) 
+app.register_blueprint(localidades_bp)
 
 # crea las tablas en la base de datos (en produccion))
 # with app.app_context():
