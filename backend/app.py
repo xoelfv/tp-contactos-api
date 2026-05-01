@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///api.db'
 # listener que se ejecuta cada vez que se establece una conexión con la base de datos, y ejecuta el comando 
 # PRAGMA foreign_keys=ON para habilitar el uso de claves foraneas en sqlite.
 # Esto es necesario porque sqlite no habilita el uso de claves foraneas por defecto y lo restaura cada vez que se conecta.
-# Esto permite impedir eliminar localidades que tienen contactos asociados
+# Esto impide eliminar localidades que tienen contactos asociados
 @event.listens_for(Engine, "connect")
 def set_sqlite_pragma(dbapi_connection, connection_record):
     cursor = dbapi_connection.cursor()

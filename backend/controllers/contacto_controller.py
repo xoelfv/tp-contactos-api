@@ -4,7 +4,7 @@ from flask import jsonify
 from flask import request
 from models.localidad import Localidad
 from schemas.contacto import contacto_schema
-from services.contacto_service import crear_contacto, obtener_contactos, obtener_contactoId, actualizar_contacto, modificar_contacto, eliminar_contacto
+from services.contacto_service import crear_contacto, eliminar_contactos, obtener_contactos, obtener_contactoId, actualizar_contacto, modificar_contacto, eliminar_contacto
 
 
 # función para estandarizar las respuestas JSON de la API
@@ -102,4 +102,12 @@ def delete_contacto(id):
 
     return respuesta_json(True, "Contacto eliminado correctamente", None, 200)
 
+def delete_contactos():
+    contactos = obtener_contactos()
 
+    if contactos is None:
+        return respuesta_json(False, "Contactos no encontrados", "No existen contactos en la base de datos", 404)
+
+    eliminar_contactos()    
+
+    return respuesta_json(True, "Contactos eliminados correctamente", None, 200)

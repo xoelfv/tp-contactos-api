@@ -1,5 +1,5 @@
 from flask import Blueprint
-from controllers.contacto_controller import get_contactos, get_contactoId, post_contacto, put_contacto, patch_contacto, delete_contacto
+from controllers.contacto_controller import get_contactos, get_contactoId, post_contacto, put_contacto, patch_contacto, delete_contacto, delete_contactos
 
 
 # se crea un blueprint para organizar las rutas/endpoints relacionadas con contactos
@@ -23,4 +23,6 @@ contactos_bp.route('/<int:id>', methods=['PATCH'])(patch_contacto)
 
 #################### DELETE ################
 contactos_bp.route('/<int:id>', methods=['DELETE'])(delete_contacto)
+
+contactos_bp.route('/', methods=['DELETE'])(delete_contactos)
 

@@ -77,4 +77,15 @@ def eliminar_contacto(id):
     db.session.delete(contacto)
     db.session.commit()
 
+def eliminar_contactos():
+    contacto = Contacto.query.all()
+    
+    if not contacto:
+        return None
+
+    for contacto in contacto:
+        db.session.delete(contacto)
+    db.session.commit()
+    
+
 
