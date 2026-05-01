@@ -10,6 +10,7 @@ class ContactoSchema(Schema):
     email = fields.Email(required=True) 
     telefono = fields.Str()
     id_localidad = fields.Int(required=True) 
+    
 
 # se crean instancias de los esquemas para usarlas después en las rutas
 contacto_schema = ContactoSchema()

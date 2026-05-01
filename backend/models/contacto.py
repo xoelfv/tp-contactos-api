@@ -17,3 +17,4 @@ class Contacto(db.Model):
         'Localidad',
         back_populates='contactos'
     )
+
