@@ -1,4 +1,6 @@
 
+# services encargado de manipular db y devolver objetos de python a las rutas para que se conviertan a json con marshmallow
+
 from models.localidad import Localidad
 from extensiones import db
 
@@ -15,7 +17,10 @@ def crear_localidad(datos):
 ###### GET #####
 
 def obtener_localidades():
-    return Localidad.query.all()
+    localidad=Localidad.query.all()
+    if not localidad:
+        return None
+    return localidad
 
 def obtener_localidadId(id):
     localidad = Localidad.query.get(id)
@@ -62,8 +67,11 @@ def eliminar_localidad(id):
 
     if localidad is None:
         return None
+    try:
+        db.session.delete(localidad)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        raise e
     
-    db.session.delete(localidad)
-    db.session.commit()
-
 

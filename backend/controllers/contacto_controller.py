@@ -1,3 +1,5 @@
+# controllers encargado de recibir las solicitudes HTTP, validar los datos, llamar a los servicios correspondientes y devolver respuestas JSON estandarizadas
+
 from flask import jsonify
 from flask import request
 from models.localidad import Localidad
@@ -19,7 +21,11 @@ def respuesta_json(success, data=None, message="", errors=None, code=200):
 
 def get_contactos():
     contactos=obtener_contactos()
+    if contactos is None:
+        return respuesta_json(False, "Contactos no encontrados", "No existen contactos en la base de datos", 404)   
     resultado = contacto_schema.dump(contactos, many=True)
+
+    
     return respuesta_json(True, resultado, "Contactos obtenidos correctamente", None, 200)
 
 def get_contactoId(id):

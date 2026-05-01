@@ -1,4 +1,4 @@
-# services encargado de manipular db y devolver objetos de python a las rutas para que se conviertan a json con marshmallow
+# services encargado de manipular db y devolver objetos de python a los controladores para validar y convertir a json con marshmallow
 
 
 from models.localidad import Localidad
@@ -19,7 +19,12 @@ def crear_contacto(datos):
 ###### GET #####
 
 def obtener_contactos():
-    return Contacto.query.all()
+    contacto = Contacto.query.all()
+
+    if not contacto:
+        return None
+    return contacto
+
 
 def obtener_contactoId(id):
     contacto = Contacto.query.get(id)

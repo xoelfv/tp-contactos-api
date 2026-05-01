@@ -1,3 +1,5 @@
+# controllers encargado de recibir las solicitudes HTTP, validar los datos, llamar a los servicios correspondientes y devolver respuestas JSON estandarizadas
+
 from flask import jsonify
 from flask import request
 from schemas.localidad import localidad_schema
@@ -18,6 +20,8 @@ def respuesta_json(success, data=None, message="", errors=None, code=200):
 
 def get_localidades():
     localidades=obtener_localidades()
+    if localidades is None:
+        return respuesta_json(success=False, message="Localidades no encontrados", errors="No existen localidades en la base de datos", code=404)
     resultado = localidad_schema.dump(localidades, many=True)
     return respuesta_json(success=True, data=resultado, message="Localidads obtenidos correctamente", code=200)
 
@@ -88,7 +92,10 @@ def delete_localidad(id):
     if localidad_id is None:
         return respuesta_json(success=False, message="Localidad no encontrado", errors="No existe un localidad con el id proporcionado", code=404)
     
-    eliminar_localidad(id)
+    try:
+        eliminar_localidad(id)
+    except Exception as e:
+        return respuesta_json(success=False, message="Error al eliminar localidad", errors=str(e), code=500)
     
     return respuesta_json(success=True, message="Localidad eliminado correctamente", code=200)
 
