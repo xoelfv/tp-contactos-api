@@ -4,7 +4,8 @@ from marshmallow import Schema, fields
 
 class LocalidadSchema(Schema):
     id = fields.Int(dump_only=True) # dump_only significa que nosotros no lo enviamos, se genera solo
-    nombre = fields.Str(required=True)
+    localidad = fields.Str(required=True)
+    provincia = fields.Str(required=True)
     
 # se crean instancias de los esquemas para usarlas después en las rutas
 localidad_schema = LocalidadSchema() 

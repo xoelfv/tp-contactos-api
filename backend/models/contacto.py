@@ -13,6 +13,7 @@ class Contacto(db.Model):
     telefono = db.Column (db.String(20), nullable=False)
     id_localidad = db.Column (db.Integer, db.ForeignKey('localidades.id', ondelete='RESTRICT'), nullable=False)
     
+    
     localidad = db.relationship(
         'Localidad',
         back_populates='contactos'

@@ -1,6 +1,7 @@
 # serializacion marshmallow, convertir objetos de python a json y viceversa para enviar y recibir datos mediante la API
 
 from marshmallow import Schema, fields
+from schemas.localidad import LocalidadSchema
 
 class ContactoSchema(Schema):
     id = fields.Int(dump_only=True) # dump_only significa que nosotros no lo enviamos, se genera solo
@@ -10,7 +11,9 @@ class ContactoSchema(Schema):
     email = fields.Email(required=True) 
     telefono = fields.Str()
     id_localidad = fields.Int(required=True) 
-    
+    localidad = fields.Nested(LocalidadSchema, dump_only=True) # para incluir la localidad completa en la respuesta, no solo el id_localidad
+
+  
 
 # se crean instancias de los esquemas para usarlas después en las rutas
 contacto_schema = ContactoSchema()
