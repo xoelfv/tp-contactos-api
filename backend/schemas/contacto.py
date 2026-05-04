@@ -10,7 +10,7 @@ class ContactoSchema(Schema):
     direccion = fields.Str()
     email = fields.Email(required=True) 
     telefono = fields.Str()
-    id_localidad = fields.Int(required=True) 
+    id_localidad = fields.Int(required=False) 
     localidad = fields.Nested(LocalidadSchema, dump_only=True) # para incluir la localidad completa en la respuesta, no solo el id_localidad
 
   

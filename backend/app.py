@@ -4,9 +4,12 @@ from routes.contactos import contactos_bp # importar el blueprint de rutas para 
 from routes.localidades import localidades_bp # importar el blueprint de rutas para localidades
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
+from flask_cors import CORS
+
 
 # Inicializa flask
 app = Flask(__name__) 
+CORS(app)
 # Configurar bd con sqlite y crear db api.db en instances. De modificar una tabla, eliminar el archivo api.db
 #  para que se vuelva a crear con la nueva estructura
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///api.db'
