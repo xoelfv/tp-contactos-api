@@ -20,24 +20,19 @@ function Contactos ({contacto, actualizarContactos}){
     }
 
     // html de la lista que se muestra en inicio
-    return  <div style={{
-            textAlign:"start",
-            display:"flex",
-            justifyContent:"space-between",
-            padding:"1rem"
-    }}> 
-        <div>   
-            <p><b> Nombre: </b>{contacto.nombre} {contacto.apellido}</p>
-            <p><b>Direccion: </b> {contacto.direccion}</p>
-            <p><b>Telefono: </b> {contacto.telefono}</p>
-            <p><b>Email: </b> {contacto.email}</p>
-            
-        </div>
-        <div>   
-            <button onClick={()=>{eliminarContacto(contacto.id)}}>Eliminar</button>
-            <button><Link to={`/editar/${contacto.id}`}>Editar</Link></button>
-        </div>
-    </div>
+    return  <div className='md:flex justify-between p-4 rounded-2xl mb-2 bg-linear-to-br from-[#35231a] to-[#422416] shadow-2xl '> 
+                <div className='text-amber-50 '>   
+                    <p><b> Nombre: </b>{contacto.nombre} {contacto.apellido}</p>
+                    <p><b>Direccion: </b> {contacto.direccion}</p>
+                    <p><b>Telefono: </b> {contacto.telefono}</p>
+                    <p><b>Email: </b> {contacto.email}</p>
+                    
+                </div>
+                <div >   
+                    <button className='rounded-tl-2xl p-2 bg-linear-to-br from-[#991d0d] to-[#7e1f0f] text-amber-50 text-sm ' onClick={()=>{eliminarContacto(contacto.id)}}>Eliminar</button>
+                    <button ><Link to={`/editar/${contacto.id}`} className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-50 text-sm'  >Editar</Link></button>
+                </div>
+             </div>
 }
 
 // lista que recorre los contactos filtrados y se los pasa a Contactos para mostrarlos

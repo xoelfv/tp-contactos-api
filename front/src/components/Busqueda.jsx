@@ -18,9 +18,14 @@ export default function Busqueda({contactos, setFiltro}){
 
     // input de búsqueda con el onchange que detecta las teclas ingresadas, y las carga en la memoria de react para que sean visibles en la caja de texto
     return (<>
-        <h2>BÚSQUEDA</h2>
-        <input type="text" value={text} onChange={(e)=> setText(e.target.value)} />
-       
+        
+        <div class="p-6 max-w-md mx-auto ">
+            <label for="input" class=" text-amber-50 mb-2">Nombre o apellido</label>
+            <input type="text" id="input" placeholder="Ingresa nombre o apellido del contacto" 
+            className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
+             w-full"
+            value={text} onChange={(e)=> setText(e.target.value)} />
+       </div>
     
     </>)
 
