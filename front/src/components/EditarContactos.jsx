@@ -60,23 +60,30 @@ export function EditarContacto ({actualizarContactos}){
 
     
     return(
-        <div style={{textAlign:"left", display:"flex", justifyContent:"space-between", padding:"1rem"}}>
-            <div>
-                <h2>Editar contacto</h2>
+        <div className="md:flex p-10 w-full justify-center md:h-dvh">
+            <div  className="bg-linear-to-br from-[#181412] to-[#2b1b14] rounded-2xl border-2 border-amber-950 shadow-2xl p-4">
+                <h2 className='text-4xl text-center p-3'>Editar contacto</h2>
                 <hr/>
+            </div>
+            <div className="bg-linear-to-br from-[#35231a] to-[#422416] rounded-2xl border-2 border-amber-950 shadow-2xl p-4 md:w-dvh">                 
                 <form onSubmit={actualizarContacto}>
                     <label htmlFor="">Nombre: </label>
-                    <input type="text" name="nombre" required value={nombre} onChange={(e)=>setNombre(e.target.value)} />
+                    <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
+             w-full" type="text" name="nombre" required value={nombre} onChange={(e)=>setNombre(e.target.value)} />
                     <label htmlFor="">Apellido: </label>
-                    <input type="text" name="apellido" required value={apellido} onChange={(e)=>setApellido(e.target.value)} />
+                    <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
+             w-full" type="text" name="apellido" required value={apellido} onChange={(e)=>setApellido(e.target.value)} />
                     <label htmlFor="">Email: </label>
-                    <input type="text" name="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
+             w-full" type="text" name="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                     <label htmlFor="">Telefono: </label>
-                    <input type="text" name="telefono" value={telefono} onChange={(e)=>setTelefono(e.target.value)}/>
+                    <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
+             w-full" type="text" name="telefono" value={telefono} onChange={(e)=>setTelefono(e.target.value)}/>
                     <label htmlFor="">Direccion: </label>
-                    <input type="text" name="direccion" value={direccion} onChange={(e)=>setDireccion(e.target.value)}/>
+                    <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
+             w-full" type="text" name="direccion" value={direccion} onChange={(e)=>setDireccion(e.target.value)}/>
                     
-                    <button type="submit">Guardar cambios</button> 
+                    <button className='bg-linear-to-r from-lime-400 to-lime-300 text-orange-950 rounded-t-xl mt-4 p-2 ' type="submit" type="submit">Guardar cambios</button> 
                 </form>
             </div>
         </div>
