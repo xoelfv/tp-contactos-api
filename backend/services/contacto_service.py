@@ -18,7 +18,7 @@ def crear_contacto(datos):
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
-        return None
+       
     
     return nuevo_contacto
 
@@ -52,7 +52,7 @@ def actualizar_contacto(id, datos):
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
-        return 0
+
 
     return contacto
 
@@ -73,7 +73,7 @@ def modificar_contacto(id, datos):
                 setattr(contacto, key, value)
     except IntegrityError:
         db.session.rollback()
-        return 0
+
 
     db.session.commit()
     return contacto
