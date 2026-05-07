@@ -9,7 +9,7 @@ class Contacto(db.Model):
     nombre = db.Column (db.String(50), nullable=False)
     apellido = db.Column (db.String(50), nullable=False)
     direccion = db.Column (db.String(50))
-    email = db.Column (db.String(50), nullable=False)
+    email = db.Column (db.String(50), nullable=False, unique=True)
     telefono = db.Column (db.String(20), nullable=False)
     id_localidad = db.Column (db.Integer, db.ForeignKey('localidades.id', ondelete='RESTRICT'), nullable=True)
     

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 export default function Busqueda({contactos, setFiltro}){
     const [text, setText] = useState("")
+    
 
     // filtro que selecciona de contactos aquellos que incluyan lo ingresado por el input
     useEffect(()=>{

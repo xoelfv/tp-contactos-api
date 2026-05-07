@@ -7,9 +7,9 @@ from services.localidad_service import crear_localidad, obtener_localidades, obt
 
 
 # función para estandarizar las respuestas JSON de la API
-def respuesta_json(success, data=None, message="", errors=None, code=200):
+def respuesta_json(ok, data=None, message="", errors=None, code=200):
     respuesta = {
-        "success": success,
+        "ok": ok,
         "data": data,
         "message": message,
         "errors": errors
@@ -21,18 +21,18 @@ def respuesta_json(success, data=None, message="", errors=None, code=200):
 def get_localidades():
     localidades=obtener_localidades()
     if localidades is None:
-        return respuesta_json(success=False, message="Localidades no encontrados", errors="No existen localidades en la base de datos", code=404)
+        return respuesta_json(False, "Localidades no encontrados", "No existen localidades en la base de datos", 404)
     resultado = localidad_schema.dump(localidades, many=True)
-    return respuesta_json(success=True, data=resultado, message="Localidads obtenidos correctamente", code=200)
+    return respuesta_json(True, resultado, "Localidads obtenidos correctamente", 200)
 
 def get_localidadId(id):
     localidad = obtener_localidadId(id)
     
     if localidad is None:
-        return respuesta_json(success=False, message="Localidad no encontrado", errors="No existe un localidad con el id proporcionado", code=404)
+        return respuesta_json(False, "Localidad no encontrado", "No existe un localidad con el id proporcionado", 404)
     
     resultado = localidad_schema.dump(localidad)
-    return respuesta_json(success=True, data=resultado, message="Localidad encontrado", code=200)
+    return respuesta_json(True, resultado, "Localidad encontrado", 200)
 
 ##### POST #####
 
@@ -43,7 +43,7 @@ def post_localidad():
         return errors
     localidad = crear_localidad(datos)
     resultado = localidad_schema.dump(localidad)
-    return respuesta_json(success=True, data=resultado, message="Localidad creado correctamente", code=201)
+    return respuesta_json(True, resultado, "Localidad creado correctamente", 201)
 
 ##### PUT #####
 
@@ -52,7 +52,7 @@ def put_localidad(id):
     localidad = obtener_localidadId(id)
 
     if localidad is None:
-        return respuesta_json(success=False, message="Localidad no encontrado", errors="No existe un localidad con el id proporcionado", code=404)
+        return respuesta_json(False, "Localidad no encontrado", "No existe un localidad con el id proporcionado", 404)
     
     datos = request.get_json()
     errors = localidad_schema.validate(datos)
@@ -62,7 +62,7 @@ def put_localidad(id):
     localidad_actualizado =actualizar_localidad(id, datos)
     resultado = localidad_schema.dump(localidad_actualizado)
 
-    return respuesta_json(success=True, data=resultado, message="Localidad actualizado correctamente", code=200)
+    return respuesta_json(True, resultado, "Localidad actualizado correctamente", 200)
         
 ##### PATCH #####
 
@@ -71,7 +71,7 @@ def patch_localidad(id):
     localidad = obtener_localidadId(id)
 
     if localidad is None:
-        return respuesta_json(success=False, message="Localidad no encontrado", errors="No existe un localidad con el id proporcionado", code=404)
+        return respuesta_json(False, "Localidad no encontrado", "No existe un localidad con el id proporcionado", 404)
     
     datos = request.get_json()
     errors = localidad_schema.validate(datos, partial=True) 
@@ -81,7 +81,7 @@ def patch_localidad(id):
     localidad_actualizado = modificar_localidad(id, datos)
     resultado = localidad_schema.dump(localidad_actualizado)
 
-    return respuesta_json(success=True, data=resultado, message="Localidad actualizado correctamente", code=200)
+    return respuesta_json(True, resultado, "Localidad actualizado correctamente", 200)
 
 ##### DELETE #####
 
@@ -90,13 +90,13 @@ def delete_localidad(id):
     localidad_id = obtener_localidadId(id)
 
     if localidad_id is None:
-        return respuesta_json(success=False, message="Localidad no encontrado", errors="No existe un localidad con el id proporcionado", code=404)
+        return respuesta_json(False, "Localidad no encontrado", "No existe un localidad con el id proporcionado", 404)
     
     try:
         eliminar_localidad(id)
     except Exception as e:
-        return respuesta_json(success=False, message="Error al eliminar localidad", errors=str(e), code=500)
+        return respuesta_json(False, "Error al eliminar localidad", str(e), 500)
     
-    return respuesta_json(success=True, message="Localidad eliminado correctamente", code=200)
+    return respuesta_json(True, "Localidad eliminado correctamente", 200)
 
 

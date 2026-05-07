@@ -30,7 +30,7 @@ function Contactos ({contacto, actualizarContactos}){
                 </div>
                 <div >   
                     <button className='rounded-tl-2xl p-2 bg-linear-to-br from-[#991d0d] to-[#7e1f0f] text-amber-100 text-sm ' onClick={()=>{eliminarContacto(contacto.id)}}>Eliminar</button>
-                    <Link to={`/editar/${contacto.id}`} className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-100 text-sm'  >Editar</Link>
+                    <Link to={`/editar/${contacto.id}`} ><button className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-100 text-sm'  >Editar</button></Link>
                 </div>
              </div>
 }

@@ -1,5 +1,7 @@
 # services encargado de manipular db y devolver objetos de python a los controladores para validar y convertir a json con marshmallow
 
+#importado integrityerror para devolver error tras validar unicidad de email IMPORTAR EXCEPCIONES SOLO DE SQLALCHEMY, NO DE SQLITE
+from sqlalchemy.exc import IntegrityError
 
 from models.localidad import Localidad
 from models.contacto import Contacto
@@ -11,8 +13,12 @@ from extensiones import db
 
 def crear_contacto(datos):
     nuevo_contacto = Contacto(**datos)
-    db.session.add(nuevo_contacto)
-    db.session.commit()
+    try:
+        db.session.add(nuevo_contacto)
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return None
     
     return nuevo_contacto
 
@@ -40,10 +46,14 @@ def actualizar_contacto(id, datos):
     if contacto is None:
         return None    
     
-    for key, value in datos.items():
-        setattr(contacto, key, value)
-    
-    db.session.commit()
+    try:
+        for key, value in datos.items():
+            setattr(contacto, key, value)
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return 0
+
     return contacto
 
 ###### PATCH #####
@@ -52,16 +62,19 @@ def modificar_contacto(id, datos):
 
     if contacto is None:
         return None
-    
-    for key, value in datos.items():
-        if key == 'id_localidad':
-            if Localidad.query.get(datos['id_localidad']) is not None:
-                setattr(contacto, key, value)
+    try:
+        for key, value in datos.items():
+            if key == 'id_localidad':
+                if Localidad.query.get(datos['id_localidad']) is not None:
+                    setattr(contacto, key, value)
+                else:
+                    return None
             else:
-                return None
-        else:
-            setattr(contacto, key, value)
-    
+                setattr(contacto, key, value)
+    except IntegrityError:
+        db.session.rollback()
+        return 0
+
     db.session.commit()
     return contacto
 
