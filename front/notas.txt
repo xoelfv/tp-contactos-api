@@ -1,0 +1,64 @@
+App.jsx
+  return (
+    <><div className=' min-h-screen bg-linear-to-br from-[#49200e] to-[#472111] text-amber-100  font-spacemono md:text-lg'>
+      
+        <Router>
+          <div className='p-8  md:justify-start  mx-auto place fixed top-4 right-1'>
+            <button onClick={toggleTheme} className=' p-2 rounded-t-xl bg-linear-to-br from-[#3a2f2a] to-[#443026] border-be-2 border-stone-600 text-amber-200  '>Cambiar tema</button>
+         </div>
+          <Routes> {/* se definen las rutas y se le asigna a cada una el componente correspondiente */}
+            <Route path="/" element={<Inicio contactos={contactos} setFiltro={setFiltro} filtro={filtro} actualizarContactos={actualizarContactos}/>}/>
+            <Route path="/add" element={<AddContacto actualizarContactos={actualizarContactos}/>}/>
+            <Route path="/editar/:id" element={<EditarContacto actualizarContactos={actualizarContactos}/>}/>
+          </Routes>
+        </Router>
+        
+    </div>
+    </>
+  )
+
+
+  Inicio
+      return (
+        <><div className="md:flex p-10 w-full justify-center md:h-dvh"  >
+                {/*div izquierda, titulo e input*/}
+                {/*se importa el componente de búsqueda y de lista para mostrar los contactos filtrados por la busqueda */}
+                <div className="bg-linear-to-br from-[#181412] to-[#2b1b14] rounded-2xl border-2 border-amber-950 shadow-2xl p-4">
+                    <h1 className='text-4xl text-center p-3'>LIBRETA DE CONTACTOS</h1> 
+                    <Busqueda contactos={contactos} setFiltro={setFiltro} />
+                    
+                    <div className='p-8 md:justify-start mx-auto'>
+                            <button >
+                                <Link to="/add" className='  bg-linear-to-r from-lime-400 to-lime-300 text-orange-950 rounded-t-xl w-full mx-auto p-2 border-be-2 border-stone-600'>Añadir contacto</Link>
+                            </button>
+                    </div>
+                
+                </div>
+                 {/*div derecha, lista*/}
+                <div className="bg-linear-to-br from-[#35231a] to-[#422416] rounded-2xl border-2 border-amber-950 shadow-2xl p-4 md:w-dvh">
+                    <div className='p-3'>
+                        <hr/>
+                            <h2 className="text-4xl p-2">LISTA DE CONTACTOS</h2>
+                        <hr/>
+                    </div>
+                    
+                        <Lista contactos={filtro} actualizarContactos={actualizarContactos}/>        
+                </div>    
+            </div>
+        </>
+    )
+
+Lista
+    return  <div className='md:flex justify-between p-4 rounded-t-2xl mb-2 bg-linear-to-br from-[#35231a] to-[#422416] shadow-2xl  '> 
+                <div className='text-amber-100 '>   
+                    <p><b> Nombre: </b>{contacto.nombre} {contacto.apellido}</p>
+                    <p><b>Direccion: </b> {contacto.direccion}</p>
+                    <p><b>Telefono: </b> {contacto.telefono}</p>
+                    <p><b>Email: </b> {contacto.email}</p>
+                    
+                </div>
+                <div >   
+                    <button className='rounded-tl-2xl p-2 bg-linear-to-br from-[#991d0d] to-[#7e1f0f] text-amber-100 text-sm ' onClick={()=>{eliminarContacto(contacto.id)}}>Eliminar</button>
+                    <Link to={`/editar/${contacto.id}`} className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-100 text-sm'  >Editar</Link>
+                </div>
+             </div>

@@ -41,12 +41,12 @@ export function AddContacto ({actualizarContactos}){
     // formulario
     return(
         <div className="md:flex p-10 w-full justify-center md:h-dvh">
-            <div className="bg-linear-to-br from-[#181412] to-[#2b1b14] rounded-2xl border-2 border-amber-950 shadow-2xl p-4">
+            <div className="bg-linear-to-bl from-[#853e1b] to-[#612e14] dark:bg-linear-to-br dark:from-[#181412] dark:to-[#2b1b14] rounded-2xl border-2 dark:border-amber-950 shadow-2xl p-4">
                 <h2 className='text-4xl text-center p-3'>Ingresar datos de contacto</h2>
                 <hr/>
             </div>    
-            <div className="bg-linear-to-br from-[#35231a] to-[#422416] rounded-2xl border-2 border-amber-950 shadow-2xl p-4 md:w-dvh">
-                <form onSubmit={guardarContacto}>
+            <div className="bg-linear-to-br from-[#fcd7a6] to-[#ddb47f] dark:bg-linear-to-br dark:from-[#35231a] dark:to-[#422416] rounded-2xl border-2 dark:border-amber-950 shadow-2xl p-4 md:w-dvh">
+                <form className="text-orange-950 dark:text-amber-100" onSubmit={guardarContacto}>
                     <label htmlFor="">Nombre: </label>
                     <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
              w-full" type="text" name="nombre" required value={nombre} onChange={(e)=>setNombre(e.target.value)} />

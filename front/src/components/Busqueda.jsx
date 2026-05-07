@@ -20,10 +20,10 @@ export default function Busqueda({contactos, setFiltro}){
     return (<>
         
         <div class="p-6 max-w-md mx-auto ">
-            <label for="input" class=" text-amber-50 mb-2">Nombre o apellido</label>
+            <label for="input" class=" text-amber-100 mb-2">Nombre o apellido</label>
             <input type="text" id="input" placeholder="Ingresa nombre o apellido del contacto" 
             className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
-             w-full"
+             w-full border-be-2 border-stone-600"
             value={text} onChange={(e)=> setText(e.target.value)} />
        </div>
     

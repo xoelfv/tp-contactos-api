@@ -20,8 +20,8 @@ function Contactos ({contacto, actualizarContactos}){
     }
 
     // html de la lista que se muestra en inicio
-    return  <div className='md:flex justify-between p-4 rounded-2xl mb-2 bg-linear-to-br from-[#35231a] to-[#422416] shadow-2xl '> 
-                <div className='text-amber-50 '>   
+    return  <div className='md:flex justify-between p-4 rounded-t-2xl mb-2 bg-linear-to-br from-[#fcd7a6] to-[#ddb47f] dark:bg-linear-to-br dark:from-[#35231a] dark:to-[#422416] shadow-2xl  '> 
+                <div className='dark:text-amber-100 text-amber-950 '>   
                     <p><b> Nombre: </b>{contacto.nombre} {contacto.apellido}</p>
                     <p><b>Direccion: </b> {contacto.direccion}</p>
                     <p><b>Telefono: </b> {contacto.telefono}</p>
@@ -29,8 +29,8 @@ function Contactos ({contacto, actualizarContactos}){
                     
                 </div>
                 <div >   
-                    <button className='rounded-tl-2xl p-2 bg-linear-to-br from-[#991d0d] to-[#7e1f0f] text-amber-50 text-sm ' onClick={()=>{eliminarContacto(contacto.id)}}>Eliminar</button>
-                    <button ><Link to={`/editar/${contacto.id}`} className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-50 text-sm'  >Editar</Link></button>
+                    <button className='rounded-tl-2xl p-2 bg-linear-to-br from-[#991d0d] to-[#7e1f0f] text-amber-100 text-sm ' onClick={()=>{eliminarContacto(contacto.id)}}>Eliminar</button>
+                    <Link to={`/editar/${contacto.id}`} className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-100 text-sm'  >Editar</Link>
                 </div>
              </div>
 }
