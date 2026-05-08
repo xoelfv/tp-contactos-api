@@ -95,7 +95,7 @@ def delete_localidad(id):
     try:
         eliminar_localidad(id)
     except Exception as e:
-        return respuesta_json(False, "Error al eliminar localidad", str(e), 500)
+        return respuesta_json(False, "Error al eliminar localidad", "No se puede borrar una localidad asociada a un contacto", errors=str(e), code=500)
     
     return respuesta_json(True, "Localidad eliminado correctamente", 200)
 

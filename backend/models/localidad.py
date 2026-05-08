@@ -11,7 +11,8 @@ class Localidad(db.Model):
     # relación con Contacto, un localidad puede tener muchos contactos, pero un contacto solo puede tener un localidad (relación uno a muchos
     contactos = db.relationship(
         'Contacto', 
-        back_populates='localidad'
+        back_populates='localidad',
+        passive_deletes=True
     )
     
 

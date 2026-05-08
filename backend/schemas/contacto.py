@@ -32,9 +32,13 @@ class ContactoSchema(Schema):
         # valida unicidad de email
     @validates("email")
     def validar_unicidad_email (self, value):
-        if Contacto.query.filter_by(email=value).first():
-            raise ValidationError("El email ya existe")
-            
+        contacto = Contacto.query.filter_by(email=value).first()
+
+        id_actual = int(self.context.get("id_contacto"))
+        if contacto and contacto.id != id_actual:
+            raise ValidationError(
+                "El email ya existe"
+        )
   
 
 # se crea instancia del esquema para usarla después en las rutas

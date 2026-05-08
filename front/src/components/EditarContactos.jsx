@@ -13,6 +13,7 @@ export function EditarContacto ({actualizarContactos}){
     const [email, setEmail] = useState("")
     const [telefono, setTelefono] = useState("")
     const [direccion, setDireccion] = useState("")
+    const [id_localidad, setIdlocalidad] = useState("")
 
     // fetchea los datos del contacto usando su id
     useEffect(() => {
@@ -26,6 +27,7 @@ export function EditarContacto ({actualizarContactos}){
                 setEmail(contacto.email)
                 setTelefono(contacto.telefono)
                 setDireccion(contacto.direccion)
+                setIdlocalidad(contacto.id_localidad)
             })
             .catch(error => console.error("error al cargar el contacto:", error));
     }, [id]) 
@@ -38,7 +40,8 @@ export function EditarContacto ({actualizarContactos}){
             apellido: apellido,
             email: email,
             telefono: telefono,
-            direccion: direccion
+            direccion: direccion,
+            id_localidad: id_localidad
         };
 
         // se hace el fetch pero con el metodo put para actualizar los datos guardados
@@ -82,6 +85,10 @@ export function EditarContacto ({actualizarContactos}){
                     <label htmlFor="">Direccion: </label>
                     <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
              w-full" type="text" name="direccion" value={direccion} onChange={(e)=>setDireccion(e.target.value)}/>
+                    <label htmlFor="">Localidad id: </label>
+                    <input className="rounded-t-xl p-2 focus:outline-none bg-linear-to-r from-amber-100 to-amber-50 text-orange-950  
+             w-full" type="text" name="id_localidad" value={id_localidad} onChange={(e)=>setIdlocalidad(e.target.value)}/>
+                    
                     
                     <button className='bg-linear-to-r from-lime-400 to-lime-300 text-orange-950 rounded-t-xl mt-4 p-2 ' type="submit">Guardar cambios</button> 
                 </form>

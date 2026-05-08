@@ -26,21 +26,24 @@ function Contactos ({contacto, actualizarContactos}){
                     <p><b>Direccion: </b> {contacto.direccion}</p>
                     <p><b>Telefono: </b> {contacto.telefono}</p>
                     <p><b>Email: </b> {contacto.email}</p>
+                    <p><b>Provincia: </b> {contacto.localidad?.provincia}</p>
+                    <p><b>Localidad: </b> {contacto.localidad?.localidad}</p>
                     
                 </div>
                 <div >   
                     <button className='rounded-tl-2xl p-2 bg-linear-to-br from-[#991d0d] to-[#7e1f0f] text-amber-100 text-sm ' onClick={()=>{eliminarContacto(contacto.id)}}>Eliminar</button>
-                    <Link to={`/editar/${contacto.id}`} ><button className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-100 text-sm'  >Editar</button></Link>
+                    <Link to={`/editarContacto/${contacto.id}`} ><button className='rounded-tr-2xl p-2 bg-linear-to-br from-[#427d80] to-[#3b6b7e] text-amber-100 text-sm  '  >Editar</button></Link>
                 </div>
              </div>
 }
 
 // lista que recorre los contactos filtrados y se los pasa a Contactos para mostrarlos
-export default function Lista ({contactos, actualizarContactos}){
+export default function Lista ({filtro, actualizarContactos, localidades}){
     
     return <>
-    {contactos.map(contacto=><Contactos  contacto={contacto} actualizarContactos={actualizarContactos}/>)} 
+    {filtro.map(contacto=><Contactos  contacto={contacto} actualizarContactos={actualizarContactos} localidades={localidades}/>)} 
     </>
 
 
 }
+

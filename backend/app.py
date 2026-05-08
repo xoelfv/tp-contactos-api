@@ -32,16 +32,13 @@ db.init_app(app)
 app.register_blueprint(contactos_bp) 
 app.register_blueprint(localidades_bp)
 
-# crea las tablas en la base de datos (en produccion))
-# with app.app_context():
-  #  db.create_all()
- 
+
 @app.route('/')
 def inicio():
     return {"message": "API Contactos"}
 
 
-# db create va dentro de este bloque solo en desarrollo
+
 if __name__ == '__main__':
         with app.app_context():
             db.create_all()

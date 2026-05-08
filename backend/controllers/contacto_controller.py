@@ -66,6 +66,8 @@ def put_contacto(id):
         return respuesta_json(False, "Contacto no encontrado", "No existe un contacto con el id proporcionado", 404)
     
     datos = request.get_json()
+
+    contacto_schema.context["id_contacto"] = id
     try:
         datos = contacto_schema.load(datos)
     except ValidationError as err:
@@ -87,7 +89,7 @@ def patch_contacto(id):
     
     datos = request.get_json()
     try:
-        datos = contacto_schema.load(datos)
+        datos = contacto_schema.load(datos, partial=True)
     except ValidationError as err:
         return respuesta_json(False, "Contacto no modificado", err.messages, 409)
     
