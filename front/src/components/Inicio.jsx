@@ -17,14 +17,14 @@ export default function Inicio ({contactos, localidades}){
                         <hr className='p-2 md:m-4 m-2'/>
                         
                         
-                        <div className='md:p-11 p-4 md:justify-start '>
-                                <button >
-                                    <Link to="/contactos" className='  bg-linear-to-br from-[#fcd7a6] to-[#ddb47f] text-orange-950 rounded-t-2xl md:text-3xl text-2xl md:px-20 px-14 md:p-3 p-1 border-be-2 border-stone-600'><u>C</u>ontactos</Link>
+                        <div className='md:p-11 p-4 md:justify-start transition-y'>
+                                <button className=' translate-y-1 transition delay-50 duration-200 ease-in-out hover:translate-y-0'>
+                                    <Link to="/contactos" className='  bg-linear-to-br from-[#fcd7a6] to-[#ddb47f] transition delay-100 duration-300 ease-in-out   hover:bg-linear-to-br hover:from-[#dfbf93] hover:to-[#cfa978]  text-orange-950 rounded-t-2xl md:text-3xl text-2xl md:px-20 px-14 md:p-3 p-1 border-be-2 border-stone-600'><u>C</u>ontactos</Link>
                                 </button>
                         </div>
                         <div className='md:p-11 p-4 md:justify-start '>
-                                <button >
-                                    <Link to="/localidades" className='  bg-linear-to-br from-[#fcd7a6] to-[#ddb47f] text-orange-950 rounded-t-2xl md:text-3xl text-2xl md:px-16 px-10 md:p-3 p-1 border-be-2 border-stone-600'><u>L</u>ocalidades</Link>
+                                <button className=' translate-y-1 transition delay-50 duration-200 ease-in-out hover:translate-y-0'>
+                                    <Link to="/localidades" className='   bg-linear-to-br from-[#fcd7a6] to-[#ddb47f] transition delay-100 duration-300 ease-in-out   hover:bg-linear-to-br hover:from-[#dfbf93] hover:to-[#cfa978]  text-orange-950 rounded-t-2xl md:text-3xl text-2xl md:px-16 px-10 md:p-3 p-1 border-be-2 border-stone-600'><u>L</u>ocalidades</Link>
                                 </button>
                         </div>
                     

@@ -3,7 +3,7 @@ import ListaLocalidades from './ListaLocalidades';
 import { Link } from 'react-router'; // importamos la herramienta para navegar
 import { useState } from "react"
 
-export default function VistaLocalidades ({localidades, actualizarLocalidades}){
+export default function VistaLocalidades ({localidades, actualizarLocalidades, mostrarToast}){
     const [filtro, setFiltro] = useState([])
 
     
@@ -16,10 +16,13 @@ export default function VistaLocalidades ({localidades, actualizarLocalidades}){
                         <h1 className='text-4xl text-center p-3'>BUSCAR LOCALIDADES</h1> 
                         <BusquedaLocalidades localidades={localidades} setFiltro={setFiltro} />
                         
-                        <div className='p-8 md:justify-start mx-auto'>
-                                <button >
-                                    <Link to="/addLocalidad" className='  bg-linear-to-r from-lime-400 to-lime-300 text-orange-950 rounded-t-xl w-full mx-auto p-2 border-be-2 border-stone-600'>Añadir localidad</Link>
-                                </button>
+                        <div className='p-8 translate-y-1 transition delay-50 duration-200 ease-in-out hover:translate-y-0'>
+                              
+                                    <Link to="/addLocalidad"> <button className='  bg-linear-to-r from-lime-400 to-lime-300 text-orange-950 rounded-t-xl w-full  p-2 border-be-2 border-stone-600'>Añadir localidad</button></Link>
+                               
+                        </div>
+                        <div className='translate-y-1 transition delay-50 duration-200 ease-in-out hover:translate-y-0 p-8  '>
+                            <Link to="/" ><button className='  bg-linear-to-br from-[#35231a] to-[#422416] text-amber-100 rounded-t-xl md:w-48 w-24  p-2 border-be-2 border-stone-600'>Volver</button></Link>
                         </div>
                     
                     </div>
@@ -32,7 +35,7 @@ export default function VistaLocalidades ({localidades, actualizarLocalidades}){
                         <hr className='text-amber-950 dark:text-amber-100 '/>
                     </div>
                     
-                        <ListaLocalidades filtro={filtro} actualizarLocalidades={actualizarLocalidades}/>        
+                        <ListaLocalidades filtro={filtro} actualizarLocalidades={actualizarLocalidades} mostrarToast={mostrarToast}/>        
                 </div>    
             </div>
         </>
